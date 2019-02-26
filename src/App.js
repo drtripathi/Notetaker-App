@@ -9,6 +9,7 @@ import { deleteNote } from './graphql/mutations'
 class App extends Component {
 
   state={
+    id: "",
    note: "",
    notes: []
   };
@@ -39,6 +40,8 @@ class App extends Component {
     this.setState({ notes: updatedNotes});
   }
 
+  handleSetNote = ({note, id}) => this.setState({note, id});
+
   render() {
 
     const { notes, note }= this.state;
@@ -64,7 +67,7 @@ class App extends Component {
       <div>
         {notes.map(item => (
           <div key={item.id} className="flex items-center">
-          <li className="list pa1 f3">
+          <li onClick = {() =>  this.handleSetNote(item)} className="list pa1 f3">
           {item.note}
           </li>
           <button onClick = {() =>  this.handleDeleteNote(item.id )} className="bg-transparent bn f4">
